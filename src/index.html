@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+    />
+    <title>Stencil Component Starter</title>
+
+    <script type="module" src="/build/temp-ced-gapi.esm.js"></script>
+    <script nomodule src="/build/temp-ced-gapi.js"></script>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        font-size: 16px;
+      }
+      body {
+        height: 100vh;
+        margin: 0;
+        display: grid;
+        place-content: center;
+        font-size: 7rem;
+      }
+    </style>
+  </head>
+  <body>
+    <ced-gapi></ced-gapi>
+
+    <script type="module">
+      const apiConfig = {
+        apiKey: "AIzaSyBQHEYZONbUfUrFTMHXstMF6xODdtvk9D8",
+        clientId:
+          "1059825985046-u12hj2id7n32q87u9m939aesk0v0igot.apps.googleusercontent.com",
+        discoveryDocs: [
+          "https://sheets.googleapis.com/$discovery/rest?version=v4"
+        ],
+        scope: "https://www.googleapis.com/auth/spreadsheets"
+        // see all available scopes here: https://developers.google.com/identity/protocols/googlescopes'
+      };
+
+      const client = document.querySelector("ced-gapi");
+      client.initialise(apiConfig).then(() => client.login());
+    </script>
+  </body>
+</html>
