@@ -38,12 +38,24 @@
         discoveryDocs: [
           "https://sheets.googleapis.com/$discovery/rest?version=v4"
         ],
+        ux_mode: "redirect",
+        // ux_mode: "prompt",
         scope: "https://www.googleapis.com/auth/spreadsheets"
         // see all available scopes here: https://developers.google.com/identity/protocols/googlescopes'
       };
 
       const client = document.querySelector("ced-gapi");
-      client.initialise(apiConfig).then(() => client.login());
+      (async () => {
+        await client.initialise(apiConfig);
+
+        // When using redirect mode the system might get stuck in a loop
+        // and loging in over and over is useless.
+        // Thus we only call `.login` when the `client` is NOT yet authenticated
+        const isAuthed = await client.isAuthenticated();
+        if (!isAuthed) {
+          return await client.login();
+        }
+      })();
     </script>
   </body>
 </html>
